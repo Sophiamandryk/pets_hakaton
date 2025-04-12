@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Зручний пошук - Порятунок безпритульних тварин</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #ff85c0;
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            padding: 20px 0;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            padding: 20px 0;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 18px;
+        }
+        
+        nav a:hover {
+            text-decoration: underline;
+        }
+        
+        .content-section {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            padding: 40px 0;
+        }
+        
+        .search-container {
+            width: 65%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+        }
+        
+        .page-title {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .search-form {
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            background-color: white;
+            color: #333;
+            font-family: 'Manrope', sans-serif;
+        }
+        
+        .search-input-group {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px 0 0 10px;
+            color: #333;
+            font-family: 'Manrope', sans-serif;
+        }
+        
+        .search-btn {
+            padding: 15px 25px;
+            background-color: #f9f871;
+            color: #333;
+            border: none;
+            border-radius: 0 10px 10px 0;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: 'Manrope', sans-serif;
+        }
+        
+        .filter-section {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .filter-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            width: calc(50% - 15px);
+        }
+        
+        .checkbox-option input[type="checkbox"] {
+            margin-right: 8px;
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .input-group .form-group {
+            flex: 1;
+        }
+        
+        .btn-row {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 20px;
+        }
+        
+        .btn {
+            padding: 15px 40px;
+            border-radius: 50px;
+            border: none;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: 'Manrope', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background-color: #f9f871;
+            color: #333;
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .paw-image {
+            width: 30%;
+            text-align: center;
+        }
+        
+        .paw-image img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .category-tabs {
+            display: flex;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .category-tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: 500;
+        }
+        
+        .category-tab.active {
+            background-color: white;
+            color: #ff85c0;
+        }
+
+        .results-section {
+            margin-top: 30px;
+        }
+
+        .results-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .pet-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .pet-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .pet-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pet-image {
+            height: 200px;
+            width: 100%;
+            background-color: #ccc;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .pet-info {
+            padding: 15px;
+        }
+
+        .pet-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .pet-details {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .pet-location {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .pets-found {
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .filter-toggle {
+            display: none;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            font-weight: 500;
+            cursor: pointer;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .content-section {
+                flex-direction: column;
+            }
+            
+            .search-container {
+                width: 100%;
+                order: 2;
+            }
+            
+            .paw-image {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 40px;
+                order: 1;
+            }
+            
+            .checkbox-option {
+                width: 100%;
+            }
+            
+            .input-group {
+                flex-direction: column;
+            }
+
+            .pet-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-toggle {
+                display: block;
+            }
+
+            .filter-section {
+                display: none;
+            }
+
+            .filter-section.visible {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <a href="#">Про нас</a>
+                <a href="#">Головна</a>
+            </nav>
+        </header>
+        
+        <section class="content-section">
+            <div class="search-container">
+                <h1 class="page-title">Зручний пошук</h1>
+                
+                <div class="search-form">
+                    <div class="search-input-group">
+                        <input type="text" class="search-input" placeholder="Введіть ключові слова для пошуку...">
+                        <button class="search-btn">Пошук</button>
+                    </div>
+
+                    <div class="filter-toggle">Показати фільтри</div>
+                    
+                    <div class="filter-section">
+                        <h3 class="filter-title">Вид тварини</h3>
+                        <div class="category-tabs">
+                            <div class="category-tab active">Всі</div>
+                            <div class="category-tab">Собаки</div>
+                            <div class="category-tab">Коти</div>
+                            <div class="category-tab">Інші</div>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-section">
+                        <h3 class="filter-title">Вік</h3>
+                        <div class="checkbox-group">
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="age" value="baby"> Дитинча (до 1 року)
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="age" value="young"> Молодий (1-3 роки)
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="age" value="adult"> Дорослий (3-8 років)
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="age" value="senior"> Старший (8+ років)
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-section">
+                        <h3 class="filter-title">Стан здоров'я</h3>
+                        <div class="checkbox-group">
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="health" value="vaccinated"> Вакцинований
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="health" value="sterilized"> Стерилізований
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="health" value="special_needs"> Особливі потреби
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="health" value="healthy"> Здоровий
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-section">
+                        <h3 class="filter-title">Місцезнаходження</h3>
+                        <div class="form-group">
+                            <select class="form-control">
+                                <option value="" selected>Всі регіони</option>
+                                <option value="kyiv">Київ</option>
+                                <option value="lviv">Львів</option>
+                                <option value="odesa">Одеса</option>
+                                <option value="dnipro">Дніпро</option>
+                                <option value="kharkiv">Харків</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="btn-row">
+                        <button type="button" class="btn btn-secondary">Очистити фільтри</button>
+                        <button type="submit" class="btn btn-primary">Застосувати</button>
+                    </div>
+                </div>
+                
+                <div class="results-section">
+                    <h2 class="results-title">Результати пошуку</h2>
+                    <p class="pets-found">Знайдено тварин: 4</p>
+                    
+                    <div class="pet-cards">
+                        <div class="pet-card">
+                            <div class="pet-image" style="background-image: url('/api/placeholder/400/300')"></div>
+                            <div class="pet-info">
+                                <h3 class="pet-name">Барсик</h3>
+                                <p class="pet-details">Кіт, 2 роки • Стерилізований</p>
+                                <p class="pet-location">Київ, Оболонь</p>
+                            </div>
+                        </div>
+                        <div class="pet-card">
+                            <div class="pet-image" style="background-image: url('/api/placeholder/400/300')"></div>
+                            <div class="pet-info">
+                                <h3 class="pet-name">Рекс</h3>
+                                <p class="pet-details">Собака, 4 роки • Вакцинований</p>
+                                <p class="pet-location">Львів, Центр</p>
+                            </div>
+                        </div>
+                        <div class="pet-card">
+                            <div class="pet-image" style="background-image: url('/api/placeholder/400/300')"></div>
+                            <div class="pet-info">
+                                <h3 class="pet-name">Маша</h3>
+                                <p class="pet-details">Кішка, 1 рік • Здорова</p>
+                                <p class="pet-location">Київ, Печерськ</p>
+                            </div>
+                        </div>
+                        <div class="pet-card">
+                            <div class="pet-image" style="background-image: url('/api/placeholder/400/300')"></div>
+                            <div class="pet-info">
+                                <h3 class="pet-name">Бім</h3>
+                                <p class="pet-details">Собака, 6 років • Особливі потреби</p>
+                                <p class="pet-location">Одеса, Приморський</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="paw-image">
+                <img src="ukraine_paw.png" alt="Лапа тварини в кольорах українського прапора">
+            </div>
+        </section>
+    </div>
+    
+    <script>
+        // Script for category tabs
+        const categoryTabs = document.querySelectorAll('.category-tab');
+        
+        categoryTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                categoryTabs.forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+            });
+        });
+        
+        // Script for filter toggle on mobile
+        const filterToggle = document.querySelector('.filter-toggle');
+        const filterSections = document.querySelectorAll('.filter-section');
+        
+        filterToggle.addEventListener('click', () => {
+            filterSections.forEach(section => {
+                section.classList.toggle('visible');
+            });
+            
+            if (filterToggle.textContent === 'Показати фільтри') {
+                filterToggle.textContent = 'Сховати фільтри';
+            } else {
+                filterToggle.textContent = 'Показати фільтри';
+            }
+        });
+    </script>
+</body>
+</html>

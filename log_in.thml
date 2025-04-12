@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Увійти - Порятунок безпритульних тварин</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #ff85c0;
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            padding: 20px 0;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            padding: 20px 0;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 18px;
+        }
+        
+        nav a:hover {
+            text-decoration: underline;
+        }
+        
+        .login-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 80vh;
+            padding: 0 20px;
+        }
+        
+        .login-form {
+            width: 50%;
+        }
+        
+        .form-title {
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 18px;
+            font-size: 16px;
+            border: none;
+            border-radius: 50px;
+            background-color: white;
+            color: #333;
+            font-family: 'Manrope', sans-serif;
+        }
+        
+        .password-field {
+            position: relative;
+        }
+        
+        .password-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+        }
+        
+        .password-input {
+            padding-left: 45px;
+        }
+        
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            border-radius: 50px;
+            border: none;
+            font-size: 18px;
+            font-weight: 500;
+            text-align: center;
+            cursor: pointer;
+            font-family: 'Manrope', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background-color: #f9f871;
+            color: #333;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .register-link {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            font-size: 16px;
+            color: white;
+        }
+        
+        .register-link a {
+            color: #f9f871;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+        
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .paw-image {
+            width: 40%;
+            text-align: right;
+        }
+        
+        .paw-image img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        @media (max-width: 768px) {
+            .login-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .login-form, .paw-image {
+                width: 100%;
+            }
+            
+            .login-form {
+                margin-bottom: 40px;
+                order: 2;
+            }
+            
+            .paw-image {
+                order: 1;
+                margin-bottom: 40px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <a href="#">Про нас</a>
+                <a href="#">Головна</a>
+            </nav>
+        </header>
+        
+        <section class="login-section">
+            <div class="login-form">
+                <h2 class="form-title">Увійти</h2>
+                
+                <form>
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email Адреса</label>
+                        <input type="email" id="email" class="form-control" value="slava.ukraini@" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password" class="form-label">Пароль</label>
+                        <div class="password-field">
+                            <svg class="password-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 11H5V21H19V11Z" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M17 11V7C17 5.93913 16.5786 4.92172 15.8284 4.17157C15.0783 3.42143 14.0609 3 13 3H11C9.93913 3 8.92172 3.42143 8.17157 4.17157C7.42143 4.92172 7 5.93913 7 7V11" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <input type="password" id="password" class="form-control password-input" placeholder="Введіть пароль" required>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Продовжити</button>
+                    
+                    <div class="register-link">
+                        <span>Не маєте акаунту?</span>
+                        <a href="#">Зареєструватися</a>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="paw-image">
+                <img src="ukraine_paw.png" alt="Лапа тварини в кольорах українського прапора">
+            </div>
+        </section>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>

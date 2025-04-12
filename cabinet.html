@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Додавання кабінету притулку - Порятунок безпритульних тварин</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #ff85c0;
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            padding: 20px 0;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            padding: 20px 0;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 18px;
+        }
+        
+        nav a:hover {
+            text-decoration: underline;
+        }
+        
+        .content-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 40px 0;
+            min-height: 80vh;
+        }
+        
+        .form-container {
+            width: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+        }
+        
+        .page-title {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            background-color: white;
+            color: #333;
+            font-family: 'Manrope', sans-serif;
+        }
+        
+        .form-control-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .photo-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 200px;
+            background-color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .photo-upload-icon {
+            font-size: 48px;
+            color: #ccc;
+            margin-bottom: 10px;
+        }
+        
+        .photo-upload-text {
+            color: #666;
+            font-size: 16px;
+            text-align: center;
+        }
+        
+        .photo-upload input[type="file"] {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .hero-image {
+            width: 40%;
+            text-align: center;
+        }
+        
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .input-group .form-group {
+            flex: 1;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            width: calc(50% - 15px);
+        }
+        
+        .checkbox-option input[type="checkbox"] {
+            margin-right: 8px;
+        }
+        
+        .btn-row {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 20px;
+        }
+        
+        .btn {
+            padding: 15px 40px;
+            border-radius: 50px;
+            border: none;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: 'Manrope', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background-color: #f9f871;
+            color: #333;
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hero-image {
+            width: 40%;
+            text-align: center;
+        }
+        
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .form-info {
+            margin-bottom: 25px;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 20px;
+        }
+        
+        .form-section-title {
+            font-weight: 600;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .tag.active {
+            background-color: white;
+            color: #ff85c0;
+        }
+        
+        .tag-selection {
+            margin-top: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .content-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .form-container, .hero-image {
+                width: 100%;
+            }
+            
+            .form-container {
+                margin-bottom: 40px;
+                order: 1;
+            }
+            
+            .hero-image {
+                order: 2;
+            }
+            
+            .checkbox-option {
+                width: 100%;
+            }
+            
+            .input-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <a href="#">Про нас</a>
+                <a href="#">Головна</a>
+            </nav>
+        </header>
+        
+        <section class="content-section">
+            <div class="form-container">
+                <h1 class="page-title">Додавання кабінету притулку</h1>
+                
+                <p class="form-info">
+                    Створіть кабінет притулку для прийому тварин від волонтерів і розміщення запитів на передачу тварин. 
+                    Після верифікації вашого профілю ви зможете приймати заявки на допомогу тваринам.
+                </p>
+                
+                <form>
+                    <div class="form-section">
+                        <h3 class="form-section-title">Інформація про притулок</h3>
+                        
+                        <div class="form-group">
+                            <label for="shelter-name" class="form-label">Назва притулку*</label>
+                            <input type="text" id="shelter-name" class="form-control" placeholder="Введіть офіційну назву притулку" required>
+                        </div>
+                        
+                        <div class="input-group">
+                            <div class="form-group">
+                                <label for="shelter-email" class="form-label">Email*</label>
+                                <input type="email" id="shelter-email" class="form-control" placeholder="email@example.com" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="shelter-phone" class="form-label">Телефон*</label>
+                                <input type="tel" id="shelter-phone" class="form-control" placeholder="+380XXXXXXXXX" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="shelter-address" class="form-label">Адреса притулку*</label>
+                            <input type="text" id="shelter-address" class="form-control" placeholder="Повна адреса притулку" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="shelter-website" class="form-label">Вебсайт (за наявності)</label>
+                            <input type="url" id="shelter-website" class="form-control" placeholder="https://example.com">
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3 class="form-section-title">Контактна особа</h3>
+                        
+                        <div class="input-group">
+                            <div class="form-group">
+                                <label for="contact-name" class="form-label">Ім'я*</label>
+                                <input type="text" id="contact-name" class="form-control" placeholder="Введіть ім'я" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-surname" class="form-label">Прізвище*</label>
+                                <input type="text" id="contact-surname" class="form-control" placeholder="Введіть прізвище" required>
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <div class="form-group">
+                                <label for="contact-position" class="form-label">Посада*</label>
+                                <input type="text" id="contact-position" class="form-control" placeholder="Посада в притулку" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-phone" class="form-label">Контактний телефон*</label>
+                                <input type="tel" id="contact-phone" class="form-control" placeholder="+380XXXXXXXXX" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3 class="form-section-title">Деталі притулку</h3>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Фото притулку</label>
+                            <div class="photo-upload">
+                                <div class="photo-upload-icon">+</div>
+                                <div class="photo-upload-text">Натисніть щоб завантажити фото<br>або перетягніть файл сюди</div>
+                                <input type="file" accept="image/*" multiple>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="shelter-description" class="form-label">Опис притулку*</label>
+                            <textarea id="shelter-description" class="form-control form-control-textarea" placeholder="Розкажіть коротко про ваш притулок, його історію та місію" required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Види тварин, яких ви приймаєте*</label>
+                            <div class="tag-selection">
+                                <span class="tag">Собаки</span>
+                                <span class="tag">Коти</span>
+                                <span class="tag">Гризуни</span>
+                                <span class="tag">Птахи</span>
+                                <span class="tag">Рептилії</span>
+                                <span class="tag">Інші</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Потреби, які ви можете задовольнити*</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-option">
+                                    <input type="checkbox" name="needs" value="medical"> Медична допомога
+                                </label>
+                                <label class="checkbox-option">
+                                    <input type="checkbox" name="needs" value="rehabilitation"> Реабілітація
+                                </label>
+                                <label class="checkbox-option">
+                                    <input type="checkbox" name="needs" value="adoption"> Пошук нових родин
+                                </label>
+                                <label class="checkbox-option">
+                                    <input type="checkbox" name="needs" value="temporary"> Тимчасовий притулок
+                                </label>
+                                <label class="checkbox-option">
+                                    <input type="checkbox" name="needs" value="transportation"> Транспортування
+                                </label>
+                                <label class="checkbox-option">
+                                    <input type="checkbox" name="needs" value="special_care"> Спеціальний догляд
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3 class="form-section-title">Верифікація</h3>
+                        
+                        <div class="form-group">
+                            <label for="license-number" class="form-label">Номер ліцензії/реєстрації*</label>
+                            <input type="text" id="license-number" class="form-control" placeholder="Номер офіційного документу притулку" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Документи для верифікації*</label>
+                            <div class="photo-upload">
+                                <div class="photo-upload-icon">+</div>
+                                <div class="photo-upload-text">Завантажте сканкопії документів<br>(реєстрація, ліцензія, дозволи)</div>
+                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" multiple>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="btn-row">
+                        <button type="button" class="btn btn-secondary">Скасувати</button>
+                        <button type="submit" class="btn btn-primary">Створити кабінет притулку</button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="hero-image">
+                <img src="ukraine_paw.png" alt="Лапа тварини в кольорах українського прапора">
+            </div>
+        </section>
+    </div>
+    
+    <script>
+        // Script for tag selection
+        const tags = document.querySelectorAll('.tag');
+        
+        tags.forEach(tag => {
+            tag.addEventListener('click', () => {
+                tag.classList.toggle('active');
+            });
+        });
+        
+        // Script for photo upload preview
+        const photoUploads = document.querySelectorAll('.photo-upload');
+        
+        photoUploads.forEach(photoUpload => {
+            const fileInput = photoUpload.querySelector('input[type="file"]');
+            
+            fileInput.addEventListener('change', function() {
+                if (this.files && this.files[0]) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        photoUpload.style.backgroundImage = `url(${e.target.result})`;
+                        photoUpload.style.backgroundSize = 'cover';
+                        photoUpload.style.backgroundPosition = 'center';
+                        
+                        // Hide the icon and text
+                        const icon = photoUpload.querySelector('.photo-upload-icon');
+                        const text = photoUpload.querySelector('.photo-upload-text');
+                        
+                        if (icon && text) {
+                            icon.style.display = 'none';
+                            text.style.display = 'none';
+                        }
+                    }
+                    
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+        });
+    </script>
+    <script src="main.js"></script>
+</body>
+</html>
