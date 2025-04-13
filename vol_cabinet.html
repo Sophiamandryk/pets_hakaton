@@ -29,28 +29,12 @@
         
         header {
             padding: 20px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .volunteer-badge {
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .volunteer-badge-icon {
-            font-size: 16px;
         }
         
         nav {
             display: flex;
             justify-content: flex-end;
+            padding: 20px 0;
         }
         
         nav a {
@@ -529,9 +513,8 @@
                 flex-direction: column;
             }
             
-            header {
-                flex-direction: column;
-                gap: 15px;
+            nav {
+                justify-content: center;
             }
         }
         
@@ -556,10 +539,6 @@
 <body>
     <div class="container">
         <header>
-            <!-- <div class="volunteer-badge">
-                <span class="volunteer-badge-icon">👋</span>
-                <span>Кабінет волонтера</span> -->
-            <!-- </div> -->
             <nav>
                 <a href="#">Головна</a>
                 <a href="#">Про нас</a>
@@ -579,7 +558,6 @@
                 <button class="tab-btn" data-tab="tab-donations">Допомогти фінансово</button>
             </div>
             
-            <!-- Вкладка профілю -->
             <div class="tab-content active" id="tab-profile">
                 <div class="profile-info">
                     <div class="profile-img"></div>
@@ -744,7 +722,6 @@
                 </form>
             </div>
             
-            <!-- Вкладка здачі знайденої тварини -->
             <div class="tab-content" id="tab-found-pet">
                 <h3 class="section-title">Здати знайдену тварину</h3>
                 
@@ -817,8 +794,6 @@
                     </div>
                 </form>
             </div>
-            
-            <!-- Вкладка запиту на тварину -->
             <div class="tab-content" id="tab-pet-request">
                 <h3 class="section-title">Запит на пошук тварини</h3>
                 <p>Якщо ви не знайшли потрібну тварину, залиште запит, і притулки зв'яжуться з вами, коли така тварина з'явиться.</p>
@@ -854,6 +829,23 @@
                             </select>
                         </div>
                     </div>
-                    
-                    <div class="form-group">
-                    <script src="main.js"></script>
+                </form>
+            </div>
+            
+
+            <div class="tab-content" id="tab-donations">
+                <h3 class="section-title">Допомогти фінансово</h3>
+
+            </div>
+        </div>
+    </div>
+    
+    <div id="petDetailsModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closePetDetailsModal()">&times;</span>
+            <!-- Вміст модального вікна -->
+        </div>
+    </div>
+    
+    <!-- <script> -->
+    <script src="main.js"></script>
