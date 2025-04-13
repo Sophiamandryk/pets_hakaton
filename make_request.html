@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Запит на тварину - Порятунок безпритульних тварин</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #ff85c0;
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            padding: 20px 0;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            padding: 20px 0;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 18px;
+        }
+        
+        nav a:hover {
+            text-decoration: underline;
+        }
+        
+        .tabs-container {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px 0;
+        }
+        
+        .tabs-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        
+        .tab-btn {
+            padding: 12px 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-family: 'Manrope', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background-color 0.3s;
+        }
+        
+        .tab-btn.active {
+            background-color: #f9f871;
+            color: #333;
+        }
+        
+        .page-title {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            background-color: white;
+            color: #333;
+            font-family: 'Manrope', sans-serif;
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .input-group .form-group {
+            flex: 1;
+        }
+        
+        .btn {
+            padding: 15px 40px;
+            border-radius: 50px;
+            border: none;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: 'Manrope', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background-color: #f9f871;
+            color: #333;
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-row {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 20px;
+        }
+        
+        .pet-request-form {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            width: calc(50% - 15px);
+        }
+        
+        .checkbox-option input[type="checkbox"] {
+            margin-right: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .input-group {
+                flex-direction: column;
+            }
+            
+            .btn-row {
+                flex-direction: column;
+            }
+            
+            .checkbox-option {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <a href="#">Головна</a>
+                <a href="#">Про нас</a>
+                <a href="#">Контакти</a>
+            </nav>
+        </header>
+        
+        <h1 class="page-title">Кабінет волонтера</h1>
+        
+        <div class="tabs-container">
+            <div class="tabs-nav">
+                <button class="tab-btn" data-tab="tab-profile">Мій профіль</button>
+                <button class="tab-btn" data-tab="tab-favorites">Улюблені тварини</button>
+                <button class="tab-btn" data-tab="tab-messages">Повідомлення</button>
+                <button class="tab-btn" data-tab="tab-search">Пошук тварин</button>
+                <button class="tab-btn" data-tab="tab-found-pet">Здати знайдену тварину</button>
+                <button class="tab-btn active" data-tab="tab-pet-request">Запит на тварину</button>
+                <button class="tab-btn" data-tab="tab-donations">Допомогти фінансово</button>
+            </div>
+            
+            <!-- Вкладка запиту на тварину -->
+            <div class="tab-content" id="tab-pet-request">
+                <h3 class="section-title">Створити запит на тварину</h3>
+                
+                <form class="pet-request-form">
+                    <div class="form-group">
+                        <label class="form-label">Оберіть притулок</label>
+                        <select class="form-control">
+                            <option value="">Оберіть притулок</option>
+                            <option value="1">Притулок "Лапки"</option>
+                            <option value="2">Центр захисту тварин</option>
+                            <option value="3">Щасливий хвіст</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Тип тварини</label>
+                        <select class="form-control">
+                            <option value="">Оберіть тип тварини</option>
+                            <option value="dog">Собака</option>
+                            <option value="cat">Кіт</option>
+                            <option value="other">Інша тварина</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Конкретна тварина (якщо вже обрали)</label>
+                        <input type="text" class="form-control" placeholder="Наприклад: Барсик, Рекс, тощо">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Опишіть вашу життєву ситуацію</label>
+                        <textarea class="form-control" placeholder="Розкажіть про те, де ви живете, чи є у вас інші домашні тварини, скільки часу ви зможете приділяти новому улюбленцю..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Чому ви хочете взяти тварину з притулку?</label>
+                        <textarea class="form-control" placeholder="Поясніть ваші мотиви..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Ваш досвід догляду за тваринами</label>
+                        <select class="form-control">
+                            <option value="">Оберіть варіант</option>
+                            <option value="none">Немає досвіду</option>
+                            <option value="little">Невеликий досвід</option>
+                            <option value="moderate">Середній досвід</option>
+                            <option value="experienced">Великий досвід</option>
+                        </select>
+                    </div>
+                    
+                    <h4 class="section-title">Умови проживання</h4>
+                    
+                    <div class="checkbox-group">
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="conditions" value="house"> Приватний будинок
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="conditions" value="apartment"> Квартира
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="conditions" value="yard"> Є власний двір
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="conditions" value="balcony"> Є балкон/тераса
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="conditions" value="children"> Є діти в домі
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="conditions" value="other_pets"> Є інші тварини
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Контактний телефон</label>
+                        <input type="tel" class="form-control" placeholder="+380991234567">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Додаткові коментарі</label>
+                        <textarea class="form-control" placeholder="Будь-яка додаткова інформація, яку ви хочете повідомити притулку..."></textarea>
+                    </div>
+                    
+                    <div class="btn-row">
+                        <button type="button" class="btn btn-secondary">Скасувати</button>
+                        <button type="submit" class="btn btn-primary">Надіслати запит</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Show active tab
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                tabButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+            });
+        });
+    </script>
+    <script src="main.js"></script>
+</body>
+</html>

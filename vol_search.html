@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Зручний пошук - Порятунок безпритульних тварин</title>
+    <title>Кабінет волонтера - Пошук тварин</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -48,18 +48,46 @@
             text-decoration: underline;
         }
         
-        .content-section {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            padding: 40px 0;
-        }
-        
-        .search-container {
-            width: 65%;
+        .tabs-container {
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 20px;
             padding: 30px;
+            margin: 20px 0;
+        }
+        
+        .tabs-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        
+        .tab-btn {
+            padding: 12px 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-family: 'Manrope', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background-color 0.3s;
+        }
+        
+        .tab-btn.active {
+            background-color: #f9f871;
+            color: #333;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
         }
         
         .page-title {
@@ -69,8 +97,10 @@
             text-align: center;
         }
         
-        .search-form {
-            margin-bottom: 30px;
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
         }
         
         .form-group {
@@ -197,16 +227,6 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
         
-        .paw-image {
-            width: 30%;
-            text-align: center;
-        }
-        
-        .paw-image img {
-            max-width: 100%;
-            height: auto;
-        }
-        
         .category-tabs {
             display: flex;
             background-color: rgba(255, 255, 255, 0.2);
@@ -228,34 +248,35 @@
             background-color: white;
             color: #ff85c0;
         }
-
+        
         .results-section {
             margin-top: 30px;
         }
-
+        
         .results-title {
             font-size: 24px;
             font-weight: 600;
             margin-bottom: 20px;
         }
-
+        
         .pet-cards {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 20px;
         }
-
+        
         .pet-card {
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             overflow: hidden;
             transition: transform 0.3s ease;
+            position: relative;
         }
-
+        
         .pet-card:hover {
             transform: translateY(-5px);
         }
-
+        
         .pet-image {
             height: 200px;
             width: 100%;
@@ -263,32 +284,32 @@
             background-size: cover;
             background-position: center;
         }
-
+        
         .pet-info {
             padding: 15px;
         }
-
+        
         .pet-name {
             font-size: 20px;
             font-weight: 600;
             margin-bottom: 5px;
         }
-
+        
         .pet-details {
             font-size: 14px;
             margin-bottom: 10px;
         }
-
+        
         .pet-location {
             font-size: 14px;
             color: rgba(255, 255, 255, 0.8);
         }
-
+        
         .pets-found {
             margin-bottom: 20px;
             font-size: 16px;
         }
-
+        
         .filter-toggle {
             display: none;
             margin-bottom: 20px;
@@ -300,21 +321,62 @@
             text-align: center;
         }
         
+        .favorite-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(255, 255, 255, 0.7);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            color: #ff85c0;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .favorite-btn.active {
+            background-color: #ff85c0;
+            color: white;
+        }
+        
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .card-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            font-family: 'Manrope', sans-serif;
+            transition: background-color 0.3s;
+        }
+        
+        .details-btn {
+            background-color: #f9f871;
+            color: #333;
+        }
+        
+        .message-btn {
+            background-color: white;
+            color: #ff85c0;
+        }
+        
+        .card-btn:hover {
+            opacity: 0.9;
+        }
+        
         @media (max-width: 768px) {
-            .content-section {
-                flex-direction: column;
-            }
-            
-            .search-container {
-                width: 100%;
-                order: 2;
-            }
-            
-            .paw-image {
-                width: 100%;
-                text-align: center;
-                margin-bottom: 40px;
-                order: 1;
+            .pet-cards {
+                grid-template-columns: 1fr;
             }
             
             .checkbox-option {
@@ -324,19 +386,15 @@
             .input-group {
                 flex-direction: column;
             }
-
-            .pet-cards {
-                grid-template-columns: 1fr;
-            }
-
+            
             .filter-toggle {
                 display: block;
             }
-
+            
             .filter-section {
                 display: none;
             }
-
+            
             .filter-section.visible {
                 display: block;
             }
@@ -347,14 +405,28 @@
     <div class="container">
         <header>
             <nav>
-                <a href="#">Про нас</a>
                 <a href="#">Головна</a>
+                <a href="#">Про нас</a>
+                <a href="#">Контакти</a>
             </nav>
         </header>
         
-        <section class="content-section">
-            <div class="search-container">
-                <h1 class="page-title">Зручний пошук</h1>
+        <h1 class="page-title">Кабінет волонтера</h1>
+        
+        <div class="tabs-container">
+            <div class="tabs-nav">
+                <button class="tab-btn" data-tab="tab-profile">Мій профіль</button>
+                <button class="tab-btn" data-tab="tab-favorites">Улюблені тварини</button>
+                <button class="tab-btn" data-tab="tab-messages">Повідомлення</button>
+                <button class="tab-btn active" data-tab="tab-search">Пошук тварин</button>
+                <button class="tab-btn" data-tab="tab-found-pet">Здати знайдену тварину</button>
+                <button class="tab-btn" data-tab="tab-pet-request">Запит на тварину</button>
+                <button class="tab-btn" data-tab="tab-donations">Допомогти фінансово</button>
+            </div>
+            
+            <!-- Вкладка пошуку тварин -->
+            <div class="tab-content active" id="tab-search">
+                <h3 class="section-title">Зручний пошук тварин</h3>
                 
                 <div class="search-form">
                     <div class="search-input-group">
@@ -436,45 +508,61 @@
                     
                     <div class="pet-cards">
                         <div class="pet-card">
+                            <button class="favorite-btn">❤</button>
                             <div class="pet-image" style="background-image: url('/api/placeholder/400/300')"></div>
                             <div class="pet-info">
                                 <h3 class="pet-name">Барсик</h3>
                                 <p class="pet-details">Кіт, 2 роки • Стерилізований</p>
                                 <p class="pet-location">Київ, Оболонь</p>
+                                <div class="card-actions">
+                                    <button class="card-btn details-btn">Деталі</button>
+                                    <button class="card-btn message-btn">Написати</button>
+                                </div>
                             </div>
                         </div>
                         <div class="pet-card">
+                            <button class="favorite-btn">❤</button>
                             <div class="pet-image" style="background-image: url('/api/placeholder/400/300')"></div>
                             <div class="pet-info">
                                 <h3 class="pet-name">Рекс</h3>
                                 <p class="pet-details">Собака, 4 роки • Вакцинований</p>
                                 <p class="pet-location">Львів, Центр</p>
+                                <div class="card-actions">
+                                    <button class="card-btn details-btn">Деталі</button>
+                                    <button class="card-btn message-btn">Написати</button>
+                                </div>
                             </div>
                         </div>
                         <div class="pet-card">
+                            <button class="favorite-btn">❤</button>
                             <div class="pet-image" style="background-image: url('/api/placeholder/400/300')"></div>
                             <div class="pet-info">
                                 <h3 class="pet-name">Маша</h3>
                                 <p class="pet-details">Кішка, 1 рік • Здорова</p>
                                 <p class="pet-location">Київ, Печерськ</p>
+                                <div class="card-actions">
+                                    <button class="card-btn details-btn">Деталі</button>
+                                    <button class="card-btn message-btn">Написати</button>
+                                </div>
                             </div>
                         </div>
                         <div class="pet-card">
+                            <button class="favorite-btn">❤</button>
                             <div class="pet-image" style="background-image: url('/api/placeholder/400/300')"></div>
                             <div class="pet-info">
                                 <h3 class="pet-name">Бім</h3>
                                 <p class="pet-details">Собака, 6 років • Особливі потреби</p>
                                 <p class="pet-location">Одеса, Приморський</p>
+                                <div class="card-actions">
+                                    <button class="card-btn details-btn">Деталі</button>
+                                    <button class="card-btn message-btn">Написати</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="paw-image">
-                <img src="ukraine_paw.png" alt="Лапа тварини в кольорах українського прапора">
-            </div>
-        </section>
+        </div>
     </div>
     
     <script>
@@ -506,6 +594,37 @@
                 filterToggle.textContent = 'Показати фільтри';
             }
         });
+        
+        // Tab navigation
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.getAttribute('data-tab');
+                
+                // Hide all tabs
+                document.querySelectorAll('.tab-content').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                
+                // Remove active class from all buttons
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Show selected tab
+                document.getElementById(tabId).classList.add('active');
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+            });
+        });
+        
+        // Toggle favorite button
+        document.querySelectorAll('.favorite-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.classList.toggle('active');
+            });
+        });
     </script>
+    <script src="main.js"></script>
 </body>
 </html>

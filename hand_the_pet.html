@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кабінет волонтера - Здати знайдену тварину</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Manrope', sans-serif;
+  background-color: #ff85c0;
+  color: white;
+  min-height: 100vh;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+header {
+  padding: 20px 0;
+}
+nav {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 0;
+}
+nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 30px;
+  font-size: 18px;
+}
+nav a:hover {
+  text-decoration: underline;
+}
+.tabs-container {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 30px;
+  margin: 20px 0;
+}
+.tabs-nav {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+.tab-btn {
+  padding: 12px 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-family: 'Manrope', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.3s;
+}
+.tab-btn.active {
+  background-color: #f9f871;
+  color: #333;
+}
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
+}
+.page-title {
+  font-size: 36px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  text-align: center;
+}
+.section-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.form-group {
+  margin-bottom: 20px;
+}
+.form-label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 500;
+}
+.form-control {
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  background-color: white;
+  color: #333;
+  font-family: 'Manrope', sans-serif;
+}
+.btn-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  gap: 20px;
+}
+.btn {
+  padding: 15px 40px;
+  border-radius: 50px;
+  border: none;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: 'Manrope', sans-serif;
+  transition: all 0.3s ease;
+}
+.btn-primary {
+  background-color: #f9f871;
+  color: #333;
+}
+.btn-secondary {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+}
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+textarea.form-control {
+  min-height: 120px;
+  resize: vertical;
+}
+.photo-upload-area {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 30px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.photo-upload-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+.photo-upload-text {
+  margin-bottom: 20px;
+}
+.photo-upload-btn {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  font-family: 'Manrope', sans-serif;
+}
+.photo-upload-btn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+.uploaded-photos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 20px;
+}
+.uploaded-photo {
+  width: 100px;
+  height: 100px;
+  background-color: #ccc;
+  border-radius: 8px;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+}
+.remove-photo {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #ff85c0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.radio-group {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+.radio-option {
+  display: flex;
+  align-items: center;
+}
+.radio-option input[type="radio"] {
+  margin-right: 8px;
+}
+.progress-steps {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  position: relative;
+}
+.progress-steps::before {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.3);
+  z-index: 1;
+}
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+.step-number {
+  width: 30px;
+  height: 30px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+.step.active .step-number {
+  background-color: #f9f871;
+  color: #333;
+}
+.step-title {
+  font-size: 14px;
+  text-align: center;
+}
+.map-container {
+  height: 300px;
+  background-color: #ccc;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  position: relative;
+}
+.success-message {
+  text-align: center;
+  padding: 40px 20px;
+}
+.success-icon {
+  font-size: 80px;
+  margin-bottom: 20px;
+  color: #f9f871;
+}
+.success-title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+.success-text {
+  font-size: 18px;
+  margin-bottom: 30px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (max-width: 768px) {
+  .btn-row {
+    flex-direction: column;
+  }
+  .btn {
+    width: 100%;
+  }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <nav>
+      <a href="#">Головна</a>
+      <a href="#">Про нас</a>
+      <a href="#">Контакти</a>
+    </nav>
+  </header>
+  <h1 class="page-title">Кабінет волонтера</h1>
+  <div class="tabs-container">
+    <div class="tabs-nav">
+      <button class="tab-btn" data-tab="tab-profile">Мій профіль</button>
+      <button class="tab-btn" data-tab="tab-favorites">Улюблені тварини</button>
+      <button class="tab-btn" data-tab="tab-messages">Повідомлення</button>
+      <button class="tab-btn" data-tab="tab-search">Пошук тварин</button>
+      <button class="tab-btn active" data-tab="tab-found-pet">Здати знайдену тварину</button>
+      <button class="tab-btn" data-tab="tab-pet-request">Запит на тварину</button>
+      <button class="tab-btn" data-tab="tab-donations">Допомогти фінансово</button>
+    </div>
+
+    <!-- Вкладка здати знайдену тварину -->
+    <div class="tab-content active" id="tab-found-pet">
+      <div class="progress-steps">
+        <div class="step active">
+          <div class="step-number">1</div>
+          <div class="step-title">Інформація про тварину</div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-title">Місце знаходження</div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-title">Контактна інформація</div>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-title">Підтвердження</div>
+        </div>
+      </div>
+
+      <h3 class="section-title">Інформація про знайдену тварину</h3>
+      <form class="found-pet-form">
+        <div class="form-group">
+          <label class="form-label">Вид тварини</label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" name="pet-type" value="dog" checked> Собака
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="pet-type" value="cat"> Кіт
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="pet-type" value="other"> Інше
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Порода (якщо відома)</label>
+          <input type="text" class="form-control" placeholder="Введіть породу тварини">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Приблизний вік</label>
+          <select class="form-control">
+            <option value="" selected>Виберіть вік</option>
+            <option value="baby">Дитинча (до 1 року)</option>
+            <option value="young">Молодий (1-3 роки)</option>
+            <option value="adult">Дорослий (3-8 років)</option>
+            <option value="senior">Старший (8+ років)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Стать</label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" name="pet-gender" value="male"> Самець
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="pet-gender" value="female"> Самка
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="pet-gender" value="unknown" checked> Невідомо
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Колір</label>
+          <input type="text" class="form-control" placeholder="Опишіть колір тварини">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Особливі прикмети</label>
+          <textarea class="form-control" placeholder="Опишіть особливі прикмети (шрами, плями, поведінка і т.д.)"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Стан здоров'я</label>
+          <select class="form-control">
+            <option value="" selected>Виберіть стан здоров'я</option>
+            <option value="healthy">Здоровий</option>
+            <option value="injured">Травмований</option>
+            <option value="sick">Хворий</option>
+            <option value="unknown">Невідомо</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Додаткова інформація про стан здоров'я</label>
+          <textarea class="form-control" placeholder="Опишіть детальніше стан здоров'я тварини, якщо є проблеми"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Завантажте фото тварини</label>
+          <div class="photo-upload-area">
+            <div class="photo-upload-icon">📷</div>
+            <p class="photo-upload-text">Перетягніть файли сюди або натисніть кнопку нижче</p>
+            <button type="button" class="photo-upload-btn">Вибрати файли</button>
+            <div class="uploaded-photos">
+              <div class="uploaded-photo" style="background-image: url('/api/placeholder/100/100')">
+                <button type="button" class="remove-photo">×</button>
+              </div>
+              <div class="uploaded-photo" style="background-image: url('/api/placeholder/100/100')">
+                <button type="button" class="remove-photo">×</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button type="button" class="btn btn-secondary">Відмінити</button>
+          <button type="button" class="btn btn-primary" id="next-step">Наступний крок</button>
+        </div>
+      </form>
+    </div>
+    
+    <!-- Інші вкладки (додані для демонстрації структури) -->
+    <div class="tab-content" id="tab-profile">
+      <!-- Контент вкладки "Мій профіль" -->
+    </div>
+
+    <div class="tab-content" id="tab-favorites">
+      <!-- Контент вкладки "Улюблені тварини" -->
+    </div>
+
+    <div class="tab-content" id="tab-messages">
+      <!-- Контент вкладки "Повідомлення" -->
+    </div>
+
+    <div class="tab-content" id="tab-search">
+      <!-- Контент вкладки "Пошук тварин" -->
+    </div>
+
+    <div class="tab-content" id="tab-pet-request">
+      <!-- Контент вкладки "Запит на тварину" -->
+    </div>
+
+    <div class="tab-content" id="tab-donations">
+      <!-- Контент вкладки "Допомогти фінансово" -->
+    </div>
+  </div>
+</div>
+
+<script>
+// Tab navigation
+document.querySelectorAll('.tab-btn').forEach(button => {
+  button.addEventListener('click', () => {
+    const tabId = button.getAttribute('data-tab');
+    // Hide all tabs
+    document.querySelectorAll('.tab-content').forEach(tab => {
+      tab.classList.remove('active');
+    });
+    // Remove active class from all buttons
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    // Show selected tab
+    document.getElementById(tabId).classList.add('active');
+    // Add active class to clicked button
+    button.classList.add('active');
+  });
+});
+
+// Next step button (for demonstration - would actually save data and show next step in a real app)
+document.getElementById('next-step').addEventListener('click', () => {
+  alert('На реальному сайті тут буде перехід до наступного кроку: інформації про місце знаходження тварини');
+});
+
+// Remove photo button
+document.querySelectorAll('.remove-photo').forEach(button => {
+  button.addEventListener('click', function() {
+    this.parentElement.remove();
+  });
+});
+</script>
+<script src="main.js"></script>
+</body>
+</html>
