@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Створення оголошення - Порятунок безпритульних тварин</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #ff85c0;
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            padding: 20px 0;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            padding: 20px 0;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 18px;
+        }
+        
+        nav a:hover {
+            text-decoration: underline;
+        }
+        
+        .content-section {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            padding: 40px 0;
+        }
+        
+        .form-container {
+            width: 65%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+        }
+        
+        .page-title {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            background-color: white;
+            color: #333;
+            font-family: 'Manrope', sans-serif;
+        }
+        
+        .form-control-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .photo-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 200px;
+            background-color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .photo-upload-icon {
+            font-size: 48px;
+            color: #ccc;
+            margin-bottom: 10px;
+        }
+        
+        .photo-upload-text {
+            color: #666;
+            font-size: 16px;
+            text-align: center;
+        }
+        
+        .photo-upload input[type="file"] {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .radio-option input[type="radio"] {
+            margin-right: 8px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            width: calc(50% - 15px);
+        }
+        
+        .checkbox-option input[type="checkbox"] {
+            margin-right: 8px;
+        }
+        
+        .btn-row {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 20px;
+        }
+        
+        .btn {
+            padding: 15px 40px;
+            border-radius: 50px;
+            border: none;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: 'Manrope', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background-color: #f9f871;
+            color: #333;
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .paw-image {
+            width: 40%;
+            text-align: center;
+        
+        }
+        
+        .paw-image img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .input-group .form-group {
+            flex: 1;
+        }
+        
+        .category-tabs {
+            display: flex;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .category-tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: 500;
+        }
+        
+        .category-tab.active {
+            background-color: white;
+            color: #ff85c0;
+        }
+        
+        @media (max-width: 768px) {
+            .content-section {
+                flex-direction: column;
+            }
+            
+            .form-container {
+                width: 100%;
+                order: 2;
+            }
+            
+            .paw-image {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 40px;
+                order: 1;
+            }
+            
+            .checkbox-option {
+                width: 100%;
+            }
+            
+            .input-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <a href="#">Про нас</a>
+                <a href="#">Головна</a>
+            </nav>
+        </header>
+        
+        <section class="content-section">
+            <div class="form-container">
+                <h1 class="page-title">Створення оголошення</h1>
+                
+                <div class="category-tabs">
+                    <div class="category-tab active">Собака</div>
+                    <div class="category-tab">Кіт</div>
+                    <div class="category-tab">Інше</div>
+                </div>
+                
+                <form>
+                    <div class="form-group">
+                        <label class="form-label">Фото тварини</label>
+                        <div class="photo-upload">
+                            <div class="photo-upload-icon">+</div>
+                            <div class="photo-upload-text">Натисніть щоб завантажити фото<br>або перетягніть файл сюди</div>
+                            <input type="file" accept="image/*" multiple>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="animal-name" class="form-label">Ім'я тварини</label>
+                        <input type="text" id="animal-name" class="form-control" placeholder="Введіть ім'я тварини">
+                    </div>
+                    
+                    <div class="input-group">
+                        <div class="form-group">
+                            <label for="animal-age" class="form-label">Вік</label>
+                            <input type="text" id="animal-age" class="form-control" placeholder="Наприклад: 2 роки">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="animal-gender" class="form-label">Стать</label>
+                            <select id="animal-gender" class="form-control">
+                                <option value="" disabled selected>Виберіть стать</option>
+                                <option value="male">Самець</option>
+                                <option value="female">Самка</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Розмір</label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="size" value="small"> Маленький
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="size" value="medium"> Середній
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="size" value="large"> Великий
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Стан здоров'я</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="health" value="vaccinated"> Вакцинований
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="health" value="sterilized"> Стерилізований
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="health" value="special_needs"> Особливі потреби
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="health" value="chronic_disease"> Хронічні захворювання
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Характер</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="character" value="friendly"> Дружелюбний
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="character" value="active"> Активний
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="character" value="calm"> Спокійний
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="character" value="playful"> Грайливий
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="character" value="kids_friendly"> Добре з дітьми
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="character" value="pets_friendly"> Добре з іншими тваринами
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="animal-description" class="form-label">Опис</label>
+                        <textarea id="animal-description" class="form-control form-control-textarea" placeholder="Детальний опис тварини, її історія та особливості"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="animal-location" class="form-label">Місцезнаходження</label>
+                        <input type="text" id="animal-location" class="form-control" placeholder="Місто, район">
+                    </div>
+                    
+                    <div class="btn-row">
+                        <button type="button" class="btn btn-secondary">Скасувати</button>
+                        <button type="submit" class="btn btn-primary">Створити оголошення</button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="paw-image">
+                <img src="ukraine_paw.png" alt="Лапа тварини в кольорах українського прапора">
+            </div>
+        </section>
+    </div>
+    
+    <script>
+        // Script for category tabs
+        const categoryTabs = document.querySelectorAll('.category-tab');
+        
+        categoryTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                categoryTabs.forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+            });
+        });
+        
+        // Script for photo upload preview
+        const photoUpload = document.querySelector('.photo-upload');
+        const fileInput = photoUpload.querySelector('input[type="file"]');
+        
+        fileInput.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    photoUpload.style.backgroundImage = `url(${e.target.result})`;
+                    photoUpload.style.backgroundSize = 'cover';
+                    photoUpload.style.backgroundPosition = 'center';
+                    
+                    // Hide the icon and text
+                    const icon = photoUpload.querySelector('.photo-upload-icon');
+                    const text = photoUpload.querySelector('.photo-upload-text');
+                    
+                    if (icon && text) {
+                        icon.style.display = 'none';
+                        text.style.display = 'none';
+                    }
+                }
+                
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    </script>
+</body>
+</html>
