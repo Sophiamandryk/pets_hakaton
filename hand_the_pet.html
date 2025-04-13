@@ -167,37 +167,6 @@ textarea.form-control {
 .photo-upload-btn:hover {
   background-color: rgba(255, 255, 255, 0.3);
 }
-.uploaded-photos {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  margin-top: 20px;
-}
-.uploaded-photo {
-  width: 100px;
-  height: 100px;
-  background-color: #ccc;
-  border-radius: 8px;
-  position: relative;
-  background-size: cover;
-  background-position: center;
-}
-.remove-photo {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  background-color: rgba(255, 255, 255, 0.8);
-  color: #ff85c0;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border: none;
-  font-size: 14px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 .radio-group {
   display: flex;
   gap: 15px;
@@ -209,76 +178,6 @@ textarea.form-control {
 }
 .radio-option input[type="radio"] {
   margin-right: 8px;
-}
-.progress-steps {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 40px;
-  position: relative;
-}
-.progress-steps::before {
-  content: '';
-  position: absolute;
-  top: 15px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: rgba(255, 255, 255, 0.3);
-  z-index: 1;
-}
-.step {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  z-index: 2;
-}
-.step-number {
-  width: 30px;
-  height: 30px;
-  background-color: rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
-  font-weight: 600;
-}
-.step.active .step-number {
-  background-color: #f9f871;
-  color: #333;
-}
-.step-title {
-  font-size: 14px;
-  text-align: center;
-}
-.map-container {
-  height: 300px;
-  background-color: #ccc;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  position: relative;
-}
-.success-message {
-  text-align: center;
-  padding: 40px 20px;
-}
-.success-icon {
-  font-size: 80px;
-  margin-bottom: 20px;
-  color: #f9f871;
-}
-.success-title {
-  font-size: 28px;
-  font-weight: 600;
-  margin-bottom: 15px;
-}
-.success-text {
-  font-size: 18px;
-  margin-bottom: 30px;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
 }
 @media (max-width: 768px) {
   .btn-row {
@@ -313,25 +212,6 @@ textarea.form-control {
 
     <!-- Вкладка здати знайдену тварину -->
     <div class="tab-content active" id="tab-found-pet">
-      <div class="progress-steps">
-        <div class="step active">
-          <div class="step-number">1</div>
-          <div class="step-title">Інформація про тварину</div>
-        </div>
-        <div class="step">
-          <div class="step-number">2</div>
-          <div class="step-title">Місце знаходження</div>
-        </div>
-        <div class="step">
-          <div class="step-number">3</div>
-          <div class="step-title">Контактна інформація</div>
-        </div>
-        <div class="step">
-          <div class="step-number">4</div>
-          <div class="step-title">Підтвердження</div>
-        </div>
-      </div>
-
       <h3 class="section-title">Інформація про знайдену тварину</h3>
       <form class="found-pet-form">
         <div class="form-group">
@@ -386,11 +266,6 @@ textarea.form-control {
         </div>
 
         <div class="form-group">
-          <label class="form-label">Особливі прикмети</label>
-          <textarea class="form-control" placeholder="Опишіть особливі прикмети (шрами, плями, поведінка і т.д.)"></textarea>
-        </div>
-
-        <div class="form-group">
           <label class="form-label">Стан здоров'я</label>
           <select class="form-control">
             <option value="" selected>Виберіть стан здоров'я</option>
@@ -402,91 +277,54 @@ textarea.form-control {
         </div>
 
         <div class="form-group">
-          <label class="form-label">Додаткова інформація про стан здоров'я</label>
-          <textarea class="form-control" placeholder="Опишіть детальніше стан здоров'я тварини, якщо є проблеми"></textarea>
-        </div>
-
-        <div class="form-group">
           <label class="form-label">Завантажте фото тварини</label>
           <div class="photo-upload-area">
             <div class="photo-upload-icon">📷</div>
             <p class="photo-upload-text">Перетягніть файли сюди або натисніть кнопку нижче</p>
             <button type="button" class="photo-upload-btn">Вибрати файли</button>
-            <div class="uploaded-photos">
-              <div class="uploaded-photo" style="background-image: url('/api/placeholder/100/100')">
-                <button type="button" class="remove-photo">×</button>
-              </div>
-              <div class="uploaded-photo" style="background-image: url('/api/placeholder/100/100')">
-                <button type="button" class="remove-photo">×</button>
-              </div>
-            </div>
           </div>
         </div>
 
         <div class="btn-row">
           <button type="button" class="btn btn-secondary">Відмінити</button>
-          <button type="button" class="btn btn-primary" id="next-step">Наступний крок</button>
+          <button type="button" class="btn btn-primary" id="submit-form">Відправити</button>
         </div>
       </form>
     </div>
     
-    <!-- Інші вкладки (додані для демонстрації структури) -->
-    <div class="tab-content" id="tab-profile">
-      <!-- Контент вкладки "Мій профіль" -->
-    </div>
-
-    <div class="tab-content" id="tab-favorites">
-      <!-- Контент вкладки "Улюблені тварини" -->
-    </div>
-
-    <div class="tab-content" id="tab-messages">
-      <!-- Контент вкладки "Повідомлення" -->
-    </div>
-
-    <div class="tab-content" id="tab-search">
-      <!-- Контент вкладки "Пошук тварин" -->
-    </div>
-
-    <div class="tab-content" id="tab-pet-request">
-      <!-- Контент вкладки "Запит на тварину" -->
-    </div>
-
-    <div class="tab-content" id="tab-donations">
-      <!-- Контент вкладки "Допомогти фінансово" -->
-    </div>
+    <!-- Інші вкладки -->
+    <div class="tab-content" id="tab-profile"></div>
+    <div class="tab-content" id="tab-favorites"></div>
+    <div class="tab-content" id="tab-messages"></div>
+    <div class="tab-content" id="tab-search"></div>
+    <div class="tab-content" id="tab-pet-request"></div>
+    <div class="tab-content" id="tab-donations"></div>
   </div>
 </div>
 
 <script>
-// Tab navigation
+
 document.querySelectorAll('.tab-btn').forEach(button => {
   button.addEventListener('click', () => {
     const tabId = button.getAttribute('data-tab');
-    // Hide all tabs
+
     document.querySelectorAll('.tab-content').forEach(tab => {
       tab.classList.remove('active');
     });
-    // Remove active class from all buttons
+
     document.querySelectorAll('.tab-btn').forEach(btn => {
       btn.classList.remove('active');
     });
-    // Show selected tab
+
     document.getElementById(tabId).classList.add('active');
-    // Add active class to clicked button
+
     button.classList.add('active');
   });
 });
 
-// Next step button (for demonstration - would actually save data and show next step in a real app)
-document.getElementById('next-step').addEventListener('click', () => {
-  alert('На реальному сайті тут буде перехід до наступного кроку: інформації про місце знаходження тварини');
-});
 
-// Remove photo button
-document.querySelectorAll('.remove-photo').forEach(button => {
-  button.addEventListener('click', function() {
-    this.parentElement.remove();
-  });
+document.getElementById('submit-form').addEventListener('click', () => {
+  alert('Форму відправлено');
 });
 </script>
 <script src="main.js"></script>

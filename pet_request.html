@@ -1,373 +1,655 @@
-<!-- INTEGRATION GUIDE -->
-<!-- 
-1. The original document already contains all necessary CSS styles for the new tabs.
-2. The HTML code for each tab should be inserted inside the "tabs-container" div in the original document.
-3. Insert the tab content just before the closing </div> of the tabs-container.
-4. Make sure the tab buttons in the navigation are properly linked.
--->
-
-<!-- First, ensure these tab buttons are in the tabs-nav section -->
-<div class="tabs-nav">
-    <button class="tab-btn active" data-tab="tab-profile">Мій профіль</button>
-    <button class="tab-btn" data-tab="tab-favorites">Улюблені тварини</button>
-    <button class="tab-btn" data-tab="tab-messages">Повідомлення</button>
-    <button class="tab-btn" data-tab="tab-search">Пошук тварин</button>
-    <button class="tab-btn" data-tab="tab-found-pet">Здати знайдену тварину</button>
-    <button class="tab-btn" data-tab="tab-pet-request">Запит на тварину</button>
-    <button class="tab-btn" data-tab="tab-donations">Допомогти фінансово</button>
-</div>
-
-<!-- Then, insert these tab contents within the tabs-container div -->
-
-<!-- Вкладка запиту на тварину -->
-<div class="tab-content" id="tab-pet-request">
-    <h3 class="section-title">Оформлення запиту на прихисток тварини</h3>
-    
-    <div class="pet-request-form">
-        <form>
-            <div class="form-group">
-                <label class="form-label">Вид тварини, якого шукаєте</label>
-                <select class="form-control">
-                    <option>Оберіть вид тварини</option>
-                    <option>Кіт</option>
-                    <option>Кішка</option>
-                    <option>Собака (пес)</option>
-                    <option>Собака (сука)</option>
-                    <option>Інше</option>
-                </select>
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Запит на тварину - Порятунок безпритульних тварин</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #ff85c0;
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            padding: 20px 0;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            padding: 20px 0;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 18px;
+        }
+        
+        nav a:hover {
+            text-decoration: underline;
+        }
+        
+        .tabs-container {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px 0;
+        }
+        
+        .tabs-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        
+        .tab-btn {
+            padding: 12px 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-family: 'Manrope', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background-color 0.3s;
+        }
+        
+        .tab-btn.active {
+            background-color: #f9f871;
+            color: #333;
+        }
+        
+        .page-title {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            background-color: white;
+            color: #333;
+            font-family: 'Manrope', sans-serif;
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .input-group .form-group {
+            flex: 1;
+        }
+        
+        .btn {
+            padding: 15px 40px;
+            border-radius: 50px;
+            border: none;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: 'Manrope', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background-color: #f9f871;
+            color: #333;
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-row {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 20px;
+        }
+        
+        .pet-request-form {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            width: calc(50% - 15px);
+        }
+        
+        .checkbox-option input[type="checkbox"] {
+            margin-right: 8px;
+        }
+        
+        /* Added styles for message containers */
+        .message-container {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .message-title {
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .message-date {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+        
+        .message-text {
+            line-height: 1.5;
+        }
+        
+        /* Mono donation button styling */
+        .mono-donate-button {
+            display: block;
+            text-align: center;
+            background-color: #7ee5ea;
+            color: #222;
+            padding: 25px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-size: 22px;
+            font-weight: 600;
+            margin: 40px auto;
+            max-width: 500px;
+            transition: all 0.3s ease;
+        }
+        
+        .mono-donate-button:hover {
+            background-color: #62c6cb;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .mono-donate-info {
+            text-align: center;
+            margin: 30px auto;
+            max-width: 700px;
+            line-height: 1.6;
+            font-size: 18px;
+        }
+        
+        /* Styling for donation options */
+        .donation-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .donation-option {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            flex: 1;
+            min-width: 120px;
+            transition: all 0.3s ease;
+        }
+        
+        .donation-option:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .donation-option.active {
+            background-color: #f9f871;
+            color: #333;
+        }
+        
+        .donation-amount {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        /* Payment methods styling */
+        .payment-methods {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .payment-method {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            flex: 1;
+            min-width: 150px;
+            transition: all 0.3s ease;
+        }
+        
+        .payment-method:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .payment-method.active {
+            background-color: #f9f871;
+            color: #333;
+        }
+        
+        /* Shelter info styling */
+        .shelter-info {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .shelter-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        /* Tab content display */
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Button danger style */
+        .btn-danger {
+            background-color: #ff6b6b;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #ff5252;
+        }
+        
+        /* Add style for filter toggles */
+        .filter-toggle {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            display: none; /* Hidden by default on desktop */
+        }
+        
+        .filter-section {
+            margin-bottom: 20px;
+        }
+        
+        /* Favorite button styling */
+        .favorite-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }
+        
+        .favorite-btn:hover, .favorite-btn.active {
+            opacity: 1;
+        }
+        
+        .favorite-btn.active {
+            color: #f9f871;
+        }
+        
+        @media (max-width: 768px) {
+            .input-group {
+                flex-direction: column;
+            }
+            
+            .btn-row {
+                flex-direction: column;
+            }
+            
+            .checkbox-option {
+                width: 100%;
+            }
+            
+            .donation-options, .payment-methods {
+                flex-direction: column;
+            }
+            
+            .donation-option, .payment-method {
+                width: 100%;
+            }
+            
+            .filter-toggle {
+                display: block;
+            }
+            
+            .filter-section {
+                display: none;
+            }
+            
+            .filter-section.visible {
+                display: block;
+            }
+            
+            .tabs-nav {
+                flex-wrap: wrap;
+            }
+            
+            .tab-btn {
+                margin-bottom: 5px;
+            }
+            
+            .mono-donate-button {
+                font-size: 18px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <a href="index.html">Головна</a>
+                <a href="#">Про нас</a>
+                <a href="#">Контакти</a>
+            </nav>
+        </header>
+        
+        <h1 class="page-title">Кабінет волонтера</h1>
+        
+        <div class="tabs-container">
+            <div class="tabs-nav">
+                <button class="tab-btn" data-tab="tab-profile">Мій профіль</button>
+                <button class="tab-btn" data-tab="tab-favorites">Улюблені тварини</button>
+                <button class="tab-btn" data-tab="tab-messages">Повідомлення</button>
+                <button class="tab-btn" data-tab="tab-search">Пошук тварин</button>
+                <button class="tab-btn" data-tab="tab-found-pet">Здати знайдену тварину</button>
+                <button class="tab-btn active" data-tab="tab-pet-request">Запит на тварину</button>
+                <button class="tab-btn" data-tab="tab-donations">Допомогти фінансово</button>
             </div>
             
-            <div class="input-group">
-                <div class="form-group">
-                    <label class="form-label">Бажаний вік</label>
-                    <select class="form-control">
-                        <option>Будь-який</option>
-                        <option>До 1 року</option>
-                        <option>1-3 роки</option>
-                        <option>3-7 років</option>
-                        <option>7+ років</option>
-                    </select>
+            <!-- Вкладка запиту на тварину -->
+            <div class="tab-content active" id="tab-pet-request">
+                <h3 class="section-title">Оформлення запиту на прихисток тварини</h3>
+                
+                <div class="pet-request-form">
+                    <form>
+                        <div class="form-group">
+                            <label class="form-label">Вид тварини, якого шукаєте</label>
+                            <select class="form-control">
+                                <option>Оберіть вид тварини</option>
+                                <option>Кіт</option>
+                                <option>Кішка</option>
+                                <option>Собака (пес)</option>
+                                <option>Собака (сука)</option>
+                                <option>Інше</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-group">
+                            <div class="form-group">
+                                <label class="form-label">Бажаний вік</label>
+                                <select class="form-control">
+                                    <option>Будь-який</option>
+                                    <option>До 1 року</option>
+                                    <option>1-3 роки</option>
+                                    <option>3-7 років</option>
+                                    <option>7+ років</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Розмір (для собак)</label>
+                                <select class="form-control">
+                                    <option>Будь-який</option>
+                                    <option>Малий (до 10 кг)</option>
+                                    <option>Середній (10-25 кг)</option>
+                                    <option>Великий (25+ кг)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Особливі побажання до тварини</label>
+                            <textarea class="form-control" placeholder="Опишіть, який характер та особливості тварини вам підходять..."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Ваш досвід утримання тварин</label>
+                            <select class="form-control">
+                                <option>Оберіть варіант</option>
+                                <option>Вперше заводжу тварину</option>
+                                <option>Мав/мала раніше, зараз немає</option>
+                                <option>Вже є тварини вдома</option>
+                                <option>Великий досвід з різними тваринами</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Умови проживання</label>
+                            <select class="form-control">
+                                <option>Оберіть варіант</option>
+                                <option>Квартира</option>
+                                <option>Будинок з подвір'ям</option>
+                                <option>Приватний будинок з вольєром</option>
+                                <option>Інше (вказати в коментарі)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Коментар до запиту</label>
+                            <textarea class="form-control" placeholder="Додаткова інформація про вас, ваші умови для утримання тварини..."></textarea>
+                        </div>
+                        
+                        <div class="shelter-info">
+                            <h4 class="shelter-name">Обрати притулок для запиту</h4>
+                            <p>Оберіть один або декілька притулків, до яких буде надіслано ваш запит:</p>
+                            
+                            <div class="checkbox-group" style="margin-top: 15px;">
+                                <label class="checkbox-option">
+                                    <input type="checkbox" name="shelter" value="shelter1"> Притулок "Лапки" (Київ)
+                                </label>
+                                <label class="checkbox-option">
+                                    <input type="checkbox" name="shelter" value="shelter2"> Центр захисту тварин (Київ)
+                                </label>
+                                <label class="checkbox-option">
+                                    <input type="checkbox" name="shelter" value="shelter3"> Щасливий хвіст (Львів)
+                                </label>
+                                <label class="checkbox-option">
+                                    <input type="checkbox" name="shelter" value="shelter4"> Пухнасті друзі (Одеса)
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="btn-row">
+                            <button type="button" class="btn btn-secondary">Скасувати</button>
+                            <button type="submit" class="btn btn-primary">Надіслати запит</button>
+                        </div>
+                    </form>
                 </div>
                 
-                <div class="form-group">
-                    <label class="form-label">Розмір (для собак)</label>
-                    <select class="form-control">
-                        <option>Будь-який</option>
-                        <option>Малий (до 10 кг)</option>
-                        <option>Середній (10-25 кг)</option>
-                        <option>Великий (25+ кг)</option>
-                    </select>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label">Особливі побажання до тварини</label>
-                <textarea class="form-control" placeholder="Опишіть, який характер та особливості тварини вам підходять..."></textarea>
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label">Ваш досвід утримання тварин</label>
-                <select class="form-control">
-                    <option>Оберіть варіант</option>
-                    <option>Вперше заводжу тварину</option>
-                    <option>Мав/мала раніше, зараз немає</option>
-                    <option>Вже є тварини вдома</option>
-                    <option>Великий досвід з різними тваринами</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label">Умови проживання</label>
-                <select class="form-control">
-                    <option>Оберіть варіант</option>
-                    <option>Квартира</option>
-                    <option>Будинок з подвір'ям</option>
-                    <option>Приватний будинок з вольєром</option>
-                    <option>Інше (вказати в коментарі)</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label">Коментар до запиту</label>
-                <textarea class="form-control" placeholder="Додаткова інформація про вас, ваші умови для утримання тварини..."></textarea>
-            </div>
-            
-            <div class="shelter-info">
-                <h4 class="shelter-name">Обрати притулок для запиту</h4>
-                <p>Оберіть один або декілька притулків, до яких буде надіслано ваш запит:</p>
+                <h3 class="section-title">Ваші активні запити</h3>
                 
-                <div class="checkbox-group" style="margin-top: 15px;">
-                    <label class="checkbox-option">
-                        <input type="checkbox" name="shelter" value="shelter1"> Притулок "Лапки" (Київ)
-                    </label>
-                    <label class="checkbox-option">
-                        <input type="checkbox" name="shelter" value="shelter2"> Центр захисту тварин (Київ)
-                    </label>
-                    <label class="checkbox-option">
-                        <input type="checkbox" name="shelter" value="shelter3"> Щасливий хвіст (Львів)
-                    </label>
-                    <label class="checkbox-option">
-                        <input type="checkbox" name="shelter" value="shelter4"> Пухнасті друзі (Одеса)
-                    </label>
-                </div>
-            </div>
-            
-            <div class="btn-row">
-                <button type="button" class="btn btn-secondary">Скасувати</button>
-                <button type="submit" class="btn btn-primary">Надіслати запит</button>
-            </div>
-        </form>
-    </div>
-    
-    <h3 class="section-title">Ваші активні запити</h3>
-    
-    <div class="message-container">
-        <div class="message-header">
-            <div class="message-title">Запит на кота (1-3 роки)</div>
-            <div class="message-date">05.04.2025</div>
-        </div>
-        <div class="message-text">
-            Запит надіслано до притулків: Притулок "Лапки", Центр захисту тварин.
-            <br><br>
-            <strong>Статус:</strong> Очікує відповіді
-        </div>
-        <div class="btn-row" style="margin-top: 15px; justify-content: flex-start;">
-            <button class="btn btn-secondary">Редагувати</button>
-            <button class="btn btn-danger">Скасувати запит</button>
-        </div>
-    </div>
-</div>
-
-<!-- Вкладка фінансової допомоги -->
-<div class="tab-content" id="tab-donations">
-    <h3 class="section-title">Допомогти фінансово притулкам</h3>
-    
-    <div class="pet-request-form">
-        <form>
-            <div class="form-group">
-                <label class="form-label">Оберіть притулок для допомоги</label>
-                <select class="form-control">
-                    <option>Усі притулки (розподіл коштів між усіма)</option>
-                    <option>Притулок "Лапки" (Київ)</option>
-                    <option>Центр захисту тварин (Київ)</option>
-                    <option>Щасливий хвіст (Львів)</option>
-                    <option>Пухнасті друзі (Одеса)</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label">Мета допомоги</label>
-                <select class="form-control">
-                    <option>Загальні потреби притулку</option>
-                    <option>Лікування тварин</option>
-                    <option>Корм та догляд</option>
-                    <option>Будівництво та ремонт</option>
-                    <option>Стерилізація</option>
-                    <option>Інше</option>
-                </select>
-            </div>
-            
-            <h4 style="margin: 20px 0;">Сума допомоги</h4>
-            
-            <div class="donation-options">
-                <div class="donation-option">
-                    <div class="donation-amount">100 ₴</div>
-                    <p>Одноразова допомога</p>
-                </div>
-                
-                <div class="donation-option">
-                    <div class="donation-amount">250 ₴</div>
-                    <p>Одноразова допомога</p>
-                </div>
-                
-                <div class="donation-option active">
-                    <div class="donation-amount">500 ₴</div>
-                    <p>Одноразова допомога</p>
-                </div>
-                
-                <div class="donation-option">
-                    <div class="donation-amount">1000 ₴</div>
-                    <p>Одноразова допомога</p>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label">Інша сума</label>
-                <input type="number" class="form-control" placeholder="Введіть суму в гривнях">
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label">Періодичність</label>
-                <select class="form-control">
-                    <option>Одноразово</option>
-                    <option>Щомісяця</option>
-                    <option>Щокварталу</option>
-                </select>
-            </div>
-            
-            <h4 style="margin: 20px 0;">Спосіб оплати</h4>
-            
-            <div class="payment-methods">
-                <div class="payment-method active">
-                    <div style="font-weight: 600; margin-bottom: 5px;">Банківська карта</div>
-                    <p>Visa, Mastercard</p>
-                </div>
-                
-                <div class="payment-method">
-                    <div style="font-weight: 600; margin-bottom: 5px;">Приват24</div>
-                    <p>Швидкий платіж</p>
-                </div>
-                
-                <div class="payment-method">
-                    <div style="font-weight: 600; margin-bottom: 5px;">Монобанк</div>
-                    <p>Швидкий платіж</p>
-                </div>
-            </div>
-            
-            <!-- Форма для банківської карти -->
-            <div id="card-payment-form">
-                <div class="input-group">
-                    <div class="form-group">
-                        <label class="form-label">Номер карти</label>
-                        <input type="text" class="form-control" placeholder="0000 0000 0000 0000">
+                <div class="message-container">
+                    <div class="message-header">
+                        <div class="message-title">Запит на кота (1-3 роки)</div>
+                        <div class="message-date">05.04.2025</div>
                     </div>
+                    <div class="message-text">
+                        Запит надіслано до притулків: Притулок "Лапки", Центр захисту тварин.
+                        <br><br>
+                        <strong>Статус:</strong> Очікує відповіді
+                    </div>
+                    <div class="btn-row" style="margin-top: 15px; justify-content: flex-start;">
+                        <button class="btn btn-secondary">Редагувати</button>
+                        <button class="btn btn-danger">Скасувати запит</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Вкладка фінансової допомоги з Монобанк -->
+            <div class="tab-content" id="tab-donations">
+                <h3 class="section-title">Допомогти фінансово притулкам</h3>
+                
+                <p class="mono-donate-info">
+                    Ви можете допомогти тваринам у притулках, зробивши внесок будь-якої суми через банку Монобанку. 
+                    Всі зібрані кошти будуть спрямовані на харчування, лікування та догляд за безпритульними тваринами.
+                </p>
+                
+                <a href="https://send.monobank.ua/jar/85iN5uicrP" class="mono-donate-button" target="_blank">
+                    Зробити донат через Монобанк
+                </a>
+                
+       
+            <!-- Placeholder for other tabs -->
+            <div class="tab-content" id="tab-profile">
+                <!-- Вміст для вкладки "Мій профіль" буде доданий пізніше -->
+            </div>
+            
+            <div class="tab-content" id="tab-favorites">
+                <!-- Вміст для вкладки "Улюблені тварини" буде доданий пізніше -->
+            </div>
+            
+            <div class="tab-content" id="tab-messages">
+                <!-- Вміст для вкладки "Повідомлення" буде доданий пізніше -->
+            </div>
+            
+            <div class="tab-content" id="tab-search">
+                <!-- Вміст для вкладки "Пошук тварин" буде доданий пізніше -->
+            </div>
+            
+            <div class="tab-content" id="tab-found-pet">
+                <!-- Вміст для вкладки "Здати знайдену тварину" буде доданий пізніше -->
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Show active tab
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching functionality
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
                     
-                    <div class="form-group">
-                        <label class="form-label">Термін дії</label>
-                        <input type="text" class="form-control" placeholder="MM/РР">
-                    </div>
-                </div>
-                
-                <div class="input-group">
-                    <div class="form-group">
-                        <label class="form-label">Ім'я власника</label>
-                        <input type="text" class="form-control" placeholder="Як вказано на карті">
-                    </div>
+                    // Deactivate all tabs
+                    tabBtns.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
                     
-                    <div class="form-group">
-                        <label class="form-label">CVV</label>
-                        <input type="password" class="form-control" placeholder="***">
-                    </div>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label">Коментар (необов'язково)</label>
-                <textarea class="form-control" placeholder="Додаткові примітки до вашого донату..."></textarea>
-            </div>
-            
-            <div class="form-group">
-                <label class="checkbox-option">
-                    <input type="checkbox" name="anonymous"> Зробити донат анонімно
-                </label>
-            </div>
-            
-            <div class="form-group">
-                <label class="checkbox-option">
-                    <input type="checkbox" name="subscribe" checked> Отримувати новини про використання коштів
-                </label>
-            </div>
-            
-            <div class="btn-row">
-                <button type="button" class="btn btn-secondary">Скасувати</button>
-                <button type="submit" class="btn btn-primary">Зробити донат</button>
-            </div>
-        </form>
-    </div>
-    
-    <h3 class="section-title">Історія донатів</h3>
-    
-    <div class="message-container">
-        <div class="message-header">
-            <div class="message-title">Донат для Притулок "Лапки"</div>
-            <div class="message-date">20.03.2025</div>
-        </div>
-        <div class="message-text">
-            <strong>Сума:</strong> 500 ₴<br>
-            <strong>Мета:</strong> Лікування тварин<br>
-            <strong>Статус:</strong> Успішно<br>
-            <strong>Спосіб оплати:</strong> Банківська карта
-        </div>
-    </div>
-    
-    <div class="message-container">
-        <div class="message-header">
-            <div class="message-title">Донат для Центр захисту тварин</div>
-            <div class="message-date">05.02.2025</div>
-        </div>
-        <div class="message-text">
-            <strong>Сума:</strong> 250 ₴<br>
-            <strong>Мета:</strong> Загальні потреби притулку<br>
-            <strong>Статус:</strong> Успішно<br>
-            <strong>Спосіб оплати:</strong> Монобанк
-        </div>
-    </div>
-</div>
-
-<!-- JavaScript for tab functionality -->
-<script>
-    // Add this script at the end of the body or in a script tag in head
-    document.addEventListener('DOMContentLoaded', function() {
-        // Tab switching functionality
-        const tabBtns = document.querySelectorAll('.tab-btn');
-        const tabContents = document.querySelectorAll('.tab-content');
-        
-        tabBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const tabId = this.getAttribute('data-tab');
-                
-                // Deactivate all tabs
-                tabBtns.forEach(btn => btn.classList.remove('active'));
-                tabContents.forEach(content => content.classList.remove('active'));
-                
-                // Activate current tab
-                this.classList.add('active');
-                document.getElementById(tabId).classList.add('active');
-            });
-        });
-        
-        // Donation options
-        const donationOptions = document.querySelectorAll('.donation-option');
-        donationOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                donationOptions.forEach(opt => opt.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-        
-        // Payment methods
-        const paymentMethods = document.querySelectorAll('.payment-method');
-        paymentMethods.forEach(method => {
-            method.addEventListener('click', function() {
-                paymentMethods.forEach(m => m.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-        
-        // Favorite button toggle
-        const favoriteButtons = document.querySelectorAll('.favorite-btn');
-        favoriteButtons.forEach(btn => {
-            btn.addEventListener('click', function() {
-                this.classList.toggle('active');
-            });
-        });
-        
-        // Filter toggle for mobile
-        const filterToggle = document.querySelector('.filter-toggle');
-        if (filterToggle) {
-            filterToggle.addEventListener('click', function() {
-                const filterSections = document.querySelectorAll('.filter-section');
-                filterSections.forEach(section => {
-                    section.classList.toggle('visible');
+                    // Activate current tab
+                    this.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
                 });
             });
+            
+            // Favorite button toggle
+            const favoriteButtons = document.querySelectorAll('.favorite-btn');
+            favoriteButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                });
+            });
+            
+            // Filter toggle for mobile
+            const filterToggle = document.querySelector('.filter-toggle');
+            if (filterToggle) {
+                filterToggle.addEventListener('click', function() {
+                    const filterSections = document.querySelectorAll('.filter-section');
+                    filterSections.forEach(section => {
+                        section.classList.toggle('visible');
+                    });
+                });
+            }
+        });
+        
+        // Function to open pet details modal
+        function openPetDetailsModal() {
+            // Modal functionality would go here
+            alert('Відкриття деталей про тварину');
         }
-    });
-    
-    // Function to open pet details modal
-    function openPetDetailsModal() {
-        // Modal functionality would go here
-        alert('Відкриття деталей про тварину');
-    }
-</script>
-<script src="main.js"></script>
+    </script>
+    <script src="main.js"></script>
+</body>
+</html>

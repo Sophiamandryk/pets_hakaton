@@ -530,7 +530,7 @@
                 -->
             </div>
             
-            <!-- Інші вкладки, які не відображаються на цій сторінці -->
+
             <div class="tab-content" id="tab-profile"></div>
             <div class="tab-content" id="tab-messages"></div>
             <div class="tab-content" id="tab-search"></div>
@@ -575,8 +575,7 @@
             // Тут можна було б завантажити дані про конкретну тварину з API
             // Для прикладу просто змінюємо ім'я
             document.getElementById('modalPetName').textContent = petName;
-            
-            // Встановлюємо дані в залежності від тварини
+     
             if (petName === 'Рекс' || petName === 'Джек') {
                 document.getElementById('modalPetType').textContent = 'Собака';
                 document.getElementById('modalPetAge').textContent = petName === 'Рекс' ? '4 роки' : '3 роки';
@@ -600,13 +599,12 @@
             modal.style.display = 'block';
         }
         
-        // Функція для закриття модального вікна
+
         function closePetDetailsModal() {
             const modal = document.getElementById('petDetailsModal');
             modal.style.display = 'none';
         }
         
-        // Закриваємо модальне вікно, якщо користувач клікає поза ним
         window.onclick = function(event) {
             const modal = document.getElementById('petDetailsModal');
             if (event.target == modal) {

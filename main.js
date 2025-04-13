@@ -1,4 +1,4 @@
-// main.js - Complete navigation handler for Ukrainian animal shelter website
+// main.js - Comprehensive navigation handler for Ukrainian animal shelter website
 
 document.addEventListener('DOMContentLoaded', function() {
     // Get current page filename
@@ -6,6 +6,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const currentPage = path.substring(path.lastIndexOf('/') + 1) || 'index.html';
     
     console.log('Current page:', currentPage);
+    
+    // Handle global navigation for any page
+    setupGlobalNavigation();
     
     // Handle navigation based on current page
     switch(currentPage) {
@@ -29,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
             
-            // Additional more aggressive approach
+            // More aggressive approach for buttons with specific text
             document.querySelectorAll('a, button, .btn').forEach(element => {
                 if (element.textContent.trim() === 'Увійти') {
                     element.addEventListener('click', function(e) {
@@ -46,8 +49,21 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             break;
             
+        case 'log_in.html':
+            // Handle "Зареєструватися" links/buttons
+            document.querySelectorAll('a, button, .btn, [role="button"], input[type="button"], input[type="submit"]').forEach(element => {
+                if (element.textContent && element.textContent.toLowerCase().includes('зареєструватися')) {
+                    element.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        console.log('Зареєструватися clicked, navigating to sign_up1.html');
+                        window.location.href = 'sign_up1.html';
+                    });
+                }
+            });
+            break;
+            
         case 'sign_up1.html':
-            // Original implementation
+            // Handle "Притулок" button
             const shelterButtons = document.querySelectorAll('button, .user-type-btn');
             shelterButtons.forEach(button => {
                 if (button.textContent && button.textContent.trim().toLowerCase() === 'притулок') {
@@ -59,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
             
+            // Handle "Волонтер" button
             const volunteerButtons = document.querySelectorAll('button, .user-type-btn');
             volunteerButtons.forEach(button => {
                 if (button.textContent && button.textContent.trim().toLowerCase() === 'волонтер') {
@@ -70,8 +87,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
             
-            // More aggressive approach from improved implementation
+            // More aggressive approach as fallback
             const shelterElements = document.querySelectorAll('a, button, .btn, [role="button"], input[type="button"], input[type="submit"], [onclick]');
+            
             shelterElements.forEach(element => {
                 if (element.textContent && element.textContent.toLowerCase().includes('притулок')) {
                     console.log('Found притулок element:', element);
@@ -82,40 +100,21 @@ document.addEventListener('DOMContentLoaded', function() {
                         window.location.href = 'sign_up2.html';
                     });
                 }
-            });
-            
-            // Handle "Волонтер" button aggressively
-            const volunteerElements = document.querySelectorAll('a, button, .btn, [role="button"], input[type="button"], input[type="submit"], [onclick]');
-            volunteerElements.forEach(element => {
+                
                 if (element.textContent && element.textContent.toLowerCase().includes('волонтер')) {
+                    console.log('Found волонтер element:', element);
+                    
                     element.addEventListener('click', function(e) {
                         e.preventDefault();
-                        console.log('Волонтер clicked, navigating to sign_up11.html');
+                        console.log('волонтер clicked, navigating to sign_up11.html');
                         window.location.href = 'sign_up11.html';
                     });
-                }
-            });
-            
-            // Global click handler as fallback
-            document.addEventListener('click', function(e) {
-                const clickedElement = e.target;
-                if (clickedElement.textContent) {
-                    const text = clickedElement.textContent.toLowerCase();
-                    if (text.includes('притулок')) {
-                        e.preventDefault();
-                        console.log('Global click handler caught притулок click');
-                        window.location.href = 'sign_up2.html';
-                    } else if (text.includes('волонтер')) {
-                        e.preventDefault();
-                        console.log('Global click handler caught волонтер click');
-                        window.location.href = 'sign_up11.html';
-                    }
                 }
             });
             break;
             
         case 'sign_up2.html':
-            // Original implementation
+            // Handle "зареєструватися" button
             const registerBtns = document.querySelectorAll('button, .btn-submit');
             registerBtns.forEach(button => {
                 if (button.textContent && button.textContent.toLowerCase().includes('зареєструватися')) {
@@ -126,7 +125,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
             
-            // More aggressive approach
+            // Handle "волонтер" button to switch to volunteer registration
+            document.querySelectorAll('a, button, .btn, [role="button"], input[type="button"], input[type="submit"]').forEach(element => {
+                if (element.textContent && element.textContent.toLowerCase().includes('волонтер')) {
+                    element.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        console.log('волонтер clicked on sign_up2, navigating to sign_up11.html');
+                        window.location.href = 'sign_up11.html';
+                    });
+                }
+            });
+            
+            // Additional fallback for register button
             document.querySelectorAll('a, button, .btn, [role="button"], input[type="button"], input[type="submit"]').forEach(element => {
                 if (element.textContent && element.textContent.toLowerCase().includes('зареєструватися')) {
                     element.addEventListener('click', function(e) {
@@ -135,65 +145,35 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                 }
             });
-            
-            // Ultra-aggressive approach 
-            document.querySelectorAll('button, input[type="submit"], .btn, .btn-primary, .submit-btn, [type="submit"]')
-            .forEach(element => {
-                console.log('Found potential submission button:', element);
-                element.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    console.log('Submission button clicked on sign_up2.html, navigating to after_logging.html');
-                    window.location.href = 'after_logging.html';
-                });
-            });
             break;
             
         case 'sign_up11.html':
-            // NEW FUNCTIONALITY: Handle volunteer registration
-            console.log('Setting up handlers for sign_up11.html');
-            
-            // Ultra-aggressive approach for this page since it's problematic
-            // Target any button or form submission element
-            document.querySelectorAll('button, input[type="submit"], .btn, .btn-primary, .submit-btn, [type="submit"]')
-            .forEach(element => {
-                console.log('Found potential volunteer submission button:', element);
-                element.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    console.log('Submission button clicked on sign_up11.html, navigating to vol_cabinet.html');
-                    window.location.href = 'vol_cabinet.html';
-                });
-            });
-            
-            // Direct document click handler for any button-like element
-            document.addEventListener('click', function(e) {
-                // Check if we're clicking anything that looks like a submit button
-                const target = e.target;
-                if (target.tagName === 'BUTTON' || 
-                    (target.tagName === 'INPUT' && target.type === 'submit') ||
-                    target.classList.contains('btn') ||
-                    target.classList.contains('btn-primary') ||
-                    (target.textContent && target.textContent.toLowerCase().includes('зареєструватися'))) {
-                    
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log('Global click handler caught button click on sign_up11.html');
-                    window.location.href = 'vol_cabinet.html';
+            // Handle "зареєструватися" button for volunteer
+            const volRegisterBtns = document.querySelectorAll('button, .btn-submit, a, .btn, [role="button"], input[type="button"], input[type="submit"]');
+            volRegisterBtns.forEach(button => {
+                if (button.textContent && button.textContent.toLowerCase().includes('зареєструватися')) {
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        console.log('зареєструватися button clicked in sign_up11, navigating to vol_cabinet.html');
+                        window.location.href = 'vol_cabinet.html';
+                    });
                 }
             });
             
-            // Add form submission handler as fallback
-            const forms = document.querySelectorAll('form');
-            forms.forEach(form => {
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    console.log('Form submitted on sign_up11.html, navigating to vol_cabinet.html');
-                    window.location.href = 'vol_cabinet.html';
-                });
+            // Handle "притулок" button to switch to shelter registration
+            document.querySelectorAll('a, button, .btn, [role="button"], input[type="button"], input[type="submit"]').forEach(element => {
+                if (element.textContent && element.textContent.toLowerCase().includes('притулок')) {
+                    element.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        console.log('притулок clicked on sign_up11, navigating to sign_up2.html');
+                        window.location.href = 'sign_up2.html';
+                    });
+                }
             });
             break;
             
         case 'after_logging.html':
-            // Original implementation
+            // Handle "створити оголошення" button
             const createAdBtn = document.querySelector('.btn-primary');
             if (createAdBtn) {
                 createAdBtn.addEventListener('click', function(e) {
@@ -202,6 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
             
+            // Handle "додати кабінет притулку" button
             const addShelterBtn = document.querySelector('.btn-secondary');
             if (addShelterBtn) {
                 addShelterBtn.addEventListener('click', function(e) {
@@ -210,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
             
-            // More aggressive approach
+            // More aggressive approach for buttons
             document.querySelectorAll('a, button, .btn').forEach(element => {
                 if (element.textContent && element.textContent.includes('Створити оголошення')) {
                     element.addEventListener('click', function(e) {
@@ -227,194 +208,159 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
             break;
-    }
-    
-    // Add debugging to help identify issues
-    console.log('Navigation setup complete for page:', currentPage);
-    
-    // EXTREMELY DIRECT APPROACH FOR VOLUNTEER TOOLBAR NAVIGATION
-    // Check if we're on any volunteer page
-    if (['vol_cabinet.html', 'fave_animals.html', 'message.html', 'vol_search.html', 'hand_the_pet.html', 'pet_request.html'].includes(currentPage)) {
-        console.log('On volunteer page, setting up toolbar handlers');
-        
-        // This is an extremely aggressive solution for toolbar navigation
-        // Create invisible overlay buttons for each toolbar option
-        const toolbarOptions = [
-            { text: 'улюблені тварини', page: 'fave_animals.html' },
-            { text: 'повідомлення', page: 'message.html' },
-            { text: 'пошук тварин', page: 'vol_search.html' },
-            { text: 'здати знайдену тварину', page: 'hand_the_pet.html' },
-            { text: 'запит на тварину', page: 'pet_request.html' },
-            { text: 'кабінет', page: 'vol_cabinet.html' }
-        ];
-        
-        // Find all text on the page that matches our toolbar options
-        let allElements = document.querySelectorAll('*');
-        allElements.forEach(element => {
-            if (!element.textContent) return;
             
-            const text = element.textContent.trim().toLowerCase();
-            
-            // Check if this element contains any of our toolbar texts
-            toolbarOptions.forEach(option => {
-                if (text.includes(option.text)) {
-                    console.log(`Found toolbar text "${option.text}" in element:`, element);
-                    
-                    // Get the element's position and size
-                    const rect = element.getBoundingClientRect();
-                    
-                    // Create an overlay button
-                    const overlayBtn = document.createElement('div');
-                    overlayBtn.style.position = 'absolute';
-                    overlayBtn.style.left = rect.left + 'px';
-                    overlayBtn.style.top = rect.top + 'px';
-                    overlayBtn.style.width = rect.width + 'px';
-                    overlayBtn.style.height = rect.height + 'px';
-                    overlayBtn.style.backgroundColor = 'transparent';
-                    overlayBtn.style.zIndex = '10000';
-                    overlayBtn.style.cursor = 'pointer';
-                    
-                    // Add click handler
-                    overlayBtn.addEventListener('click', function(e) {
+        case 'cabinet.html':
+            // Handle "створити кабінет притулку" button
+            const createShelterBtn = document.querySelectorAll('a, button, .btn, [role="button"], input[type="button"], input[type="submit"]');
+            createShelterBtn.forEach(element => {
+                if (element.textContent && element.textContent.toLowerCase().includes('створити кабінет притулку')) {
+                    element.addEventListener('click', function(e) {
                         e.preventDefault();
-                        e.stopPropagation();
-                        console.log(`Overlay button clicked for "${option.text}", navigating to ${option.page}`);
-                        window.location.href = option.page;
+                        console.log('створити кабінет притулку clicked, navigating to after_logging.html');
+                        window.location.href = 'after_logging.html';
                     });
-                    
-                    // Add to document
-                    document.body.appendChild(overlayBtn);
                 }
             });
-        });
-        
-        // Also add direct click handlers on all elements
-        document.addEventListener('click', function(e) {
-            let element = e.target;
-            let maxDepth = 5; // Check up to 5 levels of parent elements
+            break;
             
-            for (let i = 0; i < maxDepth; i++) {
-                if (!element) break;
-                
-                if (element.textContent) {
-                    const text = element.textContent.trim().toLowerCase();
-                    
-                    // Check against each toolbar option
-                    toolbarOptions.forEach(option => {
-                        if (text.includes(option.text)) {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            console.log(`Click detected on "${option.text}", navigating to ${option.page}`);
-                            window.location.href = option.page;
-                        }
+        case 'make_request.html':
+            // Handle "створити оголошення" button
+            const createAdRequestBtn = document.querySelectorAll('a, button, .btn, [role="button"], input[type="button"], input[type="submit"]');
+            createAdRequestBtn.forEach(element => {
+                if (element.textContent && element.textContent.toLowerCase().includes('створити оголошення')) {
+                    element.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        console.log('створити оголошення clicked, navigating to profile.html');
+                        window.location.href = 'profile.html';
                     });
                 }
-                
-                element = element.parentElement;
-            }
-        });
+            });
+            break;
+            
+        case 'vol_cabinet.html':
+        case 'fave_animals.html':
+        case 'message.html':
+        case 'vol_search.html':
+        case 'hand_the_pet.html':
+        case 'pet_request.html':
+            // Handle volunteer toolbar navigation
+            setupVolunteerToolbarNavigation();
+            break;
     }
+    
+    console.log('Navigation setup complete for page:', currentPage);
 });
 
-// SEPARATE VOLUNTEER TOOLBAR NAVIGATION SCRIPT
-// This runs in parallel to the main navigation script
-(function() {
-    // Helper function to get the current page
-    function getCurrentPage() {
-        const path = window.location.pathname;
-        return path.substring(path.lastIndexOf('/') + 1) || 'index.html';
-    }
-    
-    // Only run this on volunteer pages
-    const volunteerPages = ['vol_cabinet.html', 'fave_animals.html', 'message.html', 'vol_search.html', 'hand_the_pet.html', 'pet_request.html'];
-    const currentPage = getCurrentPage();
-    
-    if (!volunteerPages.includes(currentPage)) {
-        return;
-    }
-    
-    console.log('Running dedicated volunteer toolbar navigation script');
-    
-    // Define toolbar navigation mapping
-    const toolbarNavigation = {
-        'улюблені тварини': 'fave_animals.html',
-        'повідомлення': 'message.html',
-        'пошук тварин': 'vol_search.html',
-        'здати знайдену тварину': 'hand_the_pet.html',
-        'запит на тварину': 'pet_request.html',
-        'кабінет': 'vol_cabinet.html'
-    };
-    
-    // Function to set up navigation
-    function setupToolbarNavigation() {
-        // Force-add click handlers to EVERYTHING
-        document.querySelectorAll('*').forEach(element => {
-            if (!element.textContent) return;
-            
-            const text = element.textContent.trim().toLowerCase();
-            
-            // Check if this element contains any toolbar text
-            for (const [navText, destination] of Object.entries(toolbarNavigation)) {
-                if (text.includes(navText)) {
-                    // Make clickable if not already
-                    element.style.cursor = 'pointer';
-                    
-                    // Remove any existing click handlers
-                    const newElement = element.cloneNode(true);
-                    if (element.parentNode) {
-                        element.parentNode.replaceChild(newElement, element);
-                    }
-                    
-                    // Add click handler
-                    newElement.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        console.log(`Toolbar item clicked: "${navText}" -> ${destination}`);
-                        window.location.href = destination;
-                    });
-                    
-                    // Add to event debugging
-                    console.log(`Added toolbar navigation: "${navText}" -> ${destination}`, newElement);
-                    break;
-                }
-            }
-        });
-    }
-    
-    // Run setup on DOM ready
-    if (document.readyState === 'complete' || document.readyState === 'interactive') {
-        setupToolbarNavigation();
-    } else {
-        document.addEventListener('DOMContentLoaded', setupToolbarNavigation);
-    }
-    
-    // Also run it after a delay to catch dynamically loaded elements
-    setTimeout(setupToolbarNavigation, 500);
-    setTimeout(setupToolbarNavigation, 1500);
-    
-    // Add global click handler as final fallback
-    document.addEventListener('click', function(e) {
-        let element = e.target;
-        let maxDepth = 5;
-        
-        for (let i = 0; i < maxDepth; i++) {
-            if (!element) break;
-            
-            if (element.textContent) {
-                const text = element.textContent.trim().toLowerCase();
-                
-                for (const [navText, destination] of Object.entries(toolbarNavigation)) {
-                    if (text.includes(navText)) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        console.log(`Global click handler caught toolbar click: "${navText}" -> ${destination}`);
-                        window.location.href = destination;
-                        return;
-                    }
-                }
-            }
-            
-            element = element.parentElement;
+// Function to set up volunteer toolbar navigation
+function setupVolunteerToolbarNavigation() {
+    // Handle "мій профіль" navigation
+    const profileLinks = document.querySelectorAll('a, button, .btn, [role="button"], .nav-item, .toolbar-item');
+    profileLinks.forEach(element => {
+        if (element.textContent && element.textContent.toLowerCase().includes('мій профіль')) {
+            element.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('мій профіль clicked, navigating to vol_cabinet.html');
+                window.location.href = 'vol_cabinet.html';
+            });
         }
     });
-})();
+    
+    // Handle "улюблені тварини" navigation
+    const faveAnimalsLinks = document.querySelectorAll('a, button, .btn, [role="button"], .nav-item, .toolbar-item');
+    faveAnimalsLinks.forEach(element => {
+        if (element.textContent && element.textContent.toLowerCase().includes('улюблені тварини')) {
+            element.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('улюблені тварини clicked, navigating to fave_animals.html');
+                window.location.href = 'fave_animals.html';
+            });
+        }
+    });
+    
+    // Handle "повідомлення" navigation
+    const messageLinks = document.querySelectorAll('a, button, .btn, [role="button"], .nav-item, .toolbar-item');
+    messageLinks.forEach(element => {
+        if (element.textContent && element.textContent.toLowerCase().includes('повідомлення')) {
+            element.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('повідомлення clicked, navigating to message.html');
+                window.location.href = 'message.html';
+            });
+        }
+    });
+    
+    // Handle "пошук тварин" navigation
+    const searchLinks = document.querySelectorAll('a, button, .btn, [role="button"], .nav-item, .toolbar-item');
+    searchLinks.forEach(element => {
+        if (element.textContent && element.textContent.toLowerCase().includes('пошук тварин')) {
+            element.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('пошук тварин clicked, navigating to vol_search.html');
+                window.location.href = 'vol_search.html';
+            });
+        }
+    });
+    
+    // Handle "здати знайдену тварину" navigation
+    const handPetLinks = document.querySelectorAll('a, button, .btn, [role="button"], .nav-item, .toolbar-item');
+    handPetLinks.forEach(element => {
+        if (element.textContent && element.textContent.toLowerCase().includes('здати знайдену тварину')) {
+            element.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('здати знайдену тварину clicked, navigating to hand_the_pet.html');
+                window.location.href = 'hand_the_pet.html';
+            });
+        }
+    });
+    
+    // Handle "запит на тварину" navigation
+    const petRequestLinks = document.querySelectorAll('a, button, .btn, [role="button"], .nav-item, .toolbar-item');
+    petRequestLinks.forEach(element => {
+        if (element.textContent && element.textContent.toLowerCase().includes('запит на тварину')) {
+            element.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('запит на тварину clicked, navigating to pet_request.html');
+                window.location.href = 'pet_request.html';
+            });
+        }
+    });
+    
+    // Handle "кабінет" navigation to return to main volunteer cabinet
+    const cabinetLinks = document.querySelectorAll('a, button, .btn, [role="button"], .nav-item, .toolbar-item');
+    cabinetLinks.forEach(element => {
+        if (element.textContent && element.textContent.toLowerCase().includes('кабінет')) {
+            element.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('кабінет clicked, navigating to vol_cabinet.html');
+                window.location.href = 'vol_cabinet.html';
+            });
+        }
+    });
+}
+
+// Function to set up global navigation for all pages
+function setupGlobalNavigation() {
+    // Handle "головна" navigation
+    const homeLinks = document.querySelectorAll('a, button, .btn, [role="button"], .nav-item, .header-link');
+    homeLinks.forEach(element => {
+        if (element.textContent && element.textContent.toLowerCase().includes('головна')) {
+            element.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('головна clicked, navigating to index.html');
+                window.location.href = 'index.html';
+            });
+        }
+    });
+    
+    // Handle "про нас" navigation
+    const aboutLinks = document.querySelectorAll('a, button, .btn, [role="button"], .nav-item, .header-link');
+    aboutLinks.forEach(element => {
+        if (element.textContent && element.textContent.toLowerCase().includes('про нас')) {
+            element.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('про нас clicked, navigating to index.html');
+                window.location.href = 'index.html';
+            });
+        }
+    });
+}

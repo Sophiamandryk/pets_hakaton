@@ -29,12 +29,28 @@
         
         header {
             padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .volunteer-badge {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .volunteer-badge-icon {
+            font-size: 16px;
         }
         
         nav {
             display: flex;
             justify-content: flex-end;
-            padding: 20px 0;
         }
         
         nav a {
@@ -512,6 +528,11 @@
             .payment-methods {
                 flex-direction: column;
             }
+            
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -535,6 +556,10 @@
 <body>
     <div class="container">
         <header>
+            <!-- <div class="volunteer-badge">
+                <span class="volunteer-badge-icon">👋</span>
+                <span>Кабінет волонтера</span> -->
+            <!-- </div> -->
             <nav>
                 <a href="#">Головна</a>
                 <a href="#">Про нас</a>
@@ -559,12 +584,12 @@
                 <div class="profile-info">
                     <div class="profile-img"></div>
                     <div class="profile-text">
-                        <h2 class="profile-name">Анна Петренко</h2>
+                        <h2 class="profile-name">Ім'я Прізвище</h2>
                         <p class="profile-type">Волонтер</p>
                         <div class="profile-stats">
-                            <div class="stat-item">Улюблених: 5</div>
-                            <div class="stat-item">Донати: 2</div>
-                            <div class="stat-item">Запити: 1</div>
+                            <div class="stat-item">Улюблених: 0</div>
+                            <div class="stat-item">Донати: 0</div>
+                            <div class="stat-item">Запити: 0</div>
                         </div>
                     </div>
                 </div>
@@ -575,27 +600,28 @@
                     <div class="input-group">
                         <div class="form-group">
                             <label class="form-label">Ім'я</label>
-                            <input type="text" class="form-control" value="Анна">
+                            <input type="text" class="form-control" placeholder="Введіть ім'я">
                         </div>
                         <div class="form-group">
                             <label class="form-label">Прізвище</label>
-                            <input type="text" class="form-control" value="Петренко">
+                            <input type="text" class="form-control" placeholder="Введіть прізвище">
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label class="form-label">Email</label>
-                        <input type="email" class="form-control" value="anna.petrenko@example.com">
+                        <input type="email" class="form-control" placeholder="example@mail.com">
                     </div>
                     
                     <div class="form-group">
                         <label class="form-label">Телефон</label>
-                        <input type="tel" class="form-control" value="+380991234567">
+                        <input type="tel" class="form-control" placeholder="+380XXXXXXXXX">
                     </div>
                     
                     <div class="form-group">
                         <label class="form-label">Місто</label>
                         <select class="form-control">
+                            <option>Оберіть місто</option>
                             <option>Київ</option>
                             <option>Львів</option>
                             <option>Одеса</option>
@@ -830,18 +856,4 @@
                     </div>
                     
                     <div class="form-group">
-                        <label class="form-label">Порода (якщо важливо)</label>
-                        <input type="text" class="form-control" placeholder="Введіть породу">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Додаткові побажання</label>
-                        <textarea class="form-control" placeholder="Опишіть, яку саме тварину ви шукаєте"></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Регіон</label>
-                        <select class="form-control">
-                            <option>Будь-який</option>
-                            <option>
-<script src="main.js"></script>
+                    <script src="main.js"></script>
